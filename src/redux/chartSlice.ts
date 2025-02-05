@@ -1,8 +1,8 @@
-// redux/chartSlice.ts
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  chartData: [], // Initially empty or with some default values
+  chartData: [],
 };
 
 const chartSlice = createSlice({
