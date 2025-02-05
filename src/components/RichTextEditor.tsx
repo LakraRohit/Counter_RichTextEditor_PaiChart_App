@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; 
+import 'react-quill/dist/quill.snow.css';
 
-interface RichTextEditorProps {
-  initialContent: string;  
+export interface RichTextEditorProps {
+  initialContent: string;
+  editorItems: string[]; // Expecting this prop
+  addItemToEditor: (item: string) => void; // Expecting this prop
 }
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
+const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent, editorItems, addItemToEditor }) => {
   const [editorContent, setEditorContent] = useState<string>(''); 
-  const [savedContent, setSavedContent] = useState<string[]>([]); 
+  const [savedContent, setSavedContent] = useState<string[]>([]);
 
- 
   useEffect(() => {
     const storedContent = localStorage.getItem('savedContent');
     if (storedContent) {
@@ -19,10 +20,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
   }, []);
 
   useEffect(() => {
-   
     const content = initialContent || ''; 
-    
-    
     const formattedContent = content
       .split('\n')
       .map(line => `<p>${line}</p>`)
@@ -30,22 +28,20 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
     setEditorContent(formattedContent);
   }, [initialContent]);
 
- 
   const handleEditorChange = (value: string) => {
     setEditorContent(value); 
   };
 
-  
   const handleSave = () => {
     if (editorContent.trim()) {
       const newSavedContent = [...savedContent, editorContent];
       setSavedContent(newSavedContent); 
       localStorage.setItem('savedContent', JSON.stringify(newSavedContent)); 
+      addItemToEditor(editorContent); // Add content to the editorItems in parent component
       setEditorContent(''); 
     }
   };
 
-  
   const handleDelete = (index: number) => {
     const newSavedContent = savedContent.filter((_, i) => i !== index); 
     setSavedContent(newSavedContent);
@@ -71,7 +67,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
         </button>
       </div>
 
-    
       <div className="mt-4">
         <h3 className="font-semibold">Output Content:</h3>
         <div className="border p-4 rounded mt-2" style={{ minHeight: '100px' }}>
@@ -79,7 +74,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
         </div>
       </div>
 
-    
       <div className="mt-6">
         <h3 className="font-semibold">Saved Content:</h3>
         <div>
