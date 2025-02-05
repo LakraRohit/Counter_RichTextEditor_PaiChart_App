@@ -1,55 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Import Quill styles
+import 'react-quill/dist/quill.snow.css'; 
 
 interface RichTextEditorProps {
-  initialContent: string;  // Accept the initial content as a prop
+  initialContent: string;  
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
-  const [editorContent, setEditorContent] = useState<string>(''); // To hold content in the editor
-  const [savedContent, setSavedContent] = useState<string[]>([]); // To store saved formatted content
+  const [editorContent, setEditorContent] = useState<string>(''); 
+  const [savedContent, setSavedContent] = useState<string[]>([]); 
 
-  // Load saved content from localStorage when the component mounts
+ 
   useEffect(() => {
     const storedContent = localStorage.getItem('savedContent');
     if (storedContent) {
-      setSavedContent(JSON.parse(storedContent)); // Load saved content from localStorage
+      setSavedContent(JSON.parse(storedContent)); 
     }
   }, []);
 
   useEffect(() => {
-    // Ensure initialContent is not undefined or null
-    const content = initialContent || ''; // Fallback to empty string if undefined or null
+   
+    const content = initialContent || ''; 
     
-    // Convert \n into <p> tags or <br /> before setting the content
+    
     const formattedContent = content
       .split('\n')
       .map(line => `<p>${line}</p>`)
-      .join('');  // Wrap each line with <p> tags
+      .join('');  
     setEditorContent(formattedContent);
   }, [initialContent]);
 
-  // Handle editor content change
+ 
   const handleEditorChange = (value: string) => {
-    setEditorContent(value);  // Update the content as the user types
+    setEditorContent(value); 
   };
 
-  // Handle save content
+  
   const handleSave = () => {
     if (editorContent.trim()) {
       const newSavedContent = [...savedContent, editorContent];
-      setSavedContent(newSavedContent); // Add the current content to the saved list
-      localStorage.setItem('savedContent', JSON.stringify(newSavedContent)); // Save to localStorage
-      setEditorContent(''); // Clear editor after saving
+      setSavedContent(newSavedContent); 
+      localStorage.setItem('savedContent', JSON.stringify(newSavedContent)); 
+      setEditorContent(''); 
     }
   };
 
-  // Handle delete saved content
+  
   const handleDelete = (index: number) => {
-    const newSavedContent = savedContent.filter((_, i) => i !== index); // Remove the content at the given index
+    const newSavedContent = savedContent.filter((_, i) => i !== index); 
     setSavedContent(newSavedContent);
-    localStorage.setItem('savedContent', JSON.stringify(newSavedContent)); // Update localStorage
+    localStorage.setItem('savedContent', JSON.stringify(newSavedContent)); 
   };
 
   return (
@@ -71,7 +71,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
         </button>
       </div>
 
-      {/* Output Content */}
+    
       <div className="mt-4">
         <h3 className="font-semibold">Output Content:</h3>
         <div className="border p-4 rounded mt-2" style={{ minHeight: '100px' }}>
@@ -79,7 +79,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent }) => {
         </div>
       </div>
 
-      {/* Saved Content (To-Do list like) */}
+    
       <div className="mt-6">
         <h3 className="font-semibold">Saved Content:</h3>
         <div>
