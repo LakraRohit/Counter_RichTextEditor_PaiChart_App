@@ -13,11 +13,12 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({ initialContent, editorI
   const [savedContent, setSavedContent] = useState<string[]>([]);
 
   useEffect(() => {
+    console.log(editorItems);
     const storedContent = localStorage.getItem('savedContent');
     if (storedContent) {
       setSavedContent(JSON.parse(storedContent)); 
     }
-  }, []);
+  }, [[editorItems]]);
 
   useEffect(() => {
     const content = initialContent || ''; 
