@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistor, store } from './redux/store'; // Import persistor
+import { persistor, store } from './redux/store'; 
 
 import Counter from './components/Counter';
 import UserForm from './components/UserForm';
