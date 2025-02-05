@@ -1,6 +1,8 @@
+Deployed Link- counter-rich-text-editor-pai-chart-d7jdg1shy.vercel.app
+
 # Counter, Rich Text Editor, and Pie Chart App
 
-This project is a React-based web application that combines multiple features, including a **counter**, a **rich text editor**, and a **pie chart** for data visualization. It leverages various technologies to create a smooth, interactive experience. The project is designed for users to perform basic operations like counting, editing rich text content, and viewing visual data in a pie chart format, all with persistent storage via localStorage.
+This project is a React-based web application that combines multiple features, including a **counter**, a **rich text editor**, and a **pie chart** for data visualization. It leverages various technologies to create a smooth, interactive experience. The project is designed for users to perform basic operations like counting, editing rich text content, and viewing visual data in a pie chart format, all with persistent storage via local storage.
 
 ## Features
 
